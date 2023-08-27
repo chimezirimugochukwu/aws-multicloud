@@ -5,15 +5,17 @@ on:
     branches:
       - main
 
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+
 jobs:
   deploy-to-us-east-1:
     runs-on: ubuntu-latest
+    environment: DEV
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
     env:
       AWS_DEFAULT_REGION: us-east-1
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
     steps:
       - name: Checkout code
@@ -31,12 +33,10 @@ jobs:
   deploy-to-eu-west-1:
     needs: deploy-to-us-east-1
     runs-on: ubuntu-latest
+    environment: DEV
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
     env:
       AWS_DEFAULT_REGION: eu-west-1
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
     steps:
       - name: Checkout code
