@@ -17,9 +17,12 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Terraform Init for US East 1
-        run: |
-          terraform init -backend-config="key=myproject-us-east-1.tfstate"
+      - name: Terraform Init
+        run: terraform init
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
       - name: Terraform Apply for US East 1
         run: terraform apply -auto-approve -var="aws_region=us-east-1"
@@ -40,9 +43,12 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Terraform Init for EU West 1
-        run: |
-          terraform init -backend-config="key=myproject-eu-west-1.tfstate"
+      - name: Terraform Init
+        run: terraform init
+        env:
+          AWS_DEFAULT_REGION: eu-west-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
       - name: Terraform Apply for EU West 1
         run: terraform apply -auto-approve -var="aws_region=eu-west-1"
