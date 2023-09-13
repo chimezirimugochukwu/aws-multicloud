@@ -28,7 +28,7 @@ jobs:
         run: terraform init -backend-config="key=myproject-us-east-1.tfstate"
 
       - name: Terraform Apply for US East 1
-        run: terraform apply -auto-approve -var="aws_region=us-east-1"
+        run: terraform destroy -auto-approve -var="aws_region=us-east-1"
 
   deploy-to-eu-west-1:
     needs: deploy-to-us-east-1
@@ -49,4 +49,4 @@ jobs:
         run: terraform init -backend-config="key=myproject-eu-west-1.tfstate"
 
       - name: Terraform Apply for EU West 1
-        run: terraform apply -auto-approve -var="aws_region=eu-west-1"
+        run: terraform destroy -auto-approve -var="aws_region=eu-west-1"
